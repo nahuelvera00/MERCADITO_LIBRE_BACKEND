@@ -3,9 +3,10 @@ const bcrypt = require("bcrypt");
 class PasswordMethods {
   constructor() {}
 
+  //-----------------------------------------------------------------------------------------------------------------------
   /**
-   * @params Password
    * @hashPassword Generate password hashed
+   * @params Password
    * @returns Password hashed
    */
   async hashPassword(password) {
@@ -13,6 +14,14 @@ class PasswordMethods {
     return await bcrypt.hash(password, salt);
   }
 
+  //------------------------------------------------------------------------------------------------------------------------
+
+  /**
+   *
+   * @param {*} passwordFormulario password req.body
+   * @param {*} passwordUser password DB
+   * @returns returns true if the parameters match, otherwise false
+   */
   async checkPassword(passwordFormulario, passwordUser) {
     return await bcrypt.compare(passwordFormulario, passwordUser);
   }

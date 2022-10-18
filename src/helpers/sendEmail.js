@@ -33,6 +33,8 @@ export async function sendEmailRegister(data) {
   const info = await transport.sendMail(message);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------------------
+
 export async function sendEmailRecoverPassword(data) {
   const { email, name, token } = data;
 

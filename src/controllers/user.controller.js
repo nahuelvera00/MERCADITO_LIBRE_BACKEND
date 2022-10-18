@@ -180,6 +180,8 @@ class UserControllers {
     }
   }
 
+  //---------------------------------------------------------------------------------------------------------------------------------------
+
   async recoverPassword(req, res) {
     const { email } = req.body;
     const user = await this.databaseService.findByEmail(email);
@@ -215,6 +217,10 @@ class UserControllers {
 
   //-----------------------------------------------------------------------------------------
 
+  /**
+   * @checkToken Verify if it exist user
+   * @param {*} req Require Token
+   */
   async checkToken(req, res) {
     const { token } = req.params;
 
@@ -224,31 +230,44 @@ class UserControllers {
       const error = new Error("Invalid Token");
       return res.status(404).json({ message: error.message });
     }
+    //response
     res.json({ message: "Valid token, user exists" });
   }
 
   //-----------------------------------------------------------------------------------------
+
+  /**
+   * @newPassword Reset password
+   * @param {*} req Require token and new password
+   * @returns Message
+   */
 
   async newPassword(req, res) {
     const { token } = req.params;
     const { password } = req.body;
 
     try {
+      //Get the user by token
       const user = await this.databaseService.findByToken(token);
 
+      //Check if the user exists
       if (user.length == 0) {
         const error = new Error("Invalid Token");
         return res.status(404).json({ message: error.message });
       }
+
+      //New data for user
       const data = {
         password: await PasswordMethods.hashPassword(password),
         token: "",
       };
 
+      //Update data
       const result = await this.databaseService.update(data, user[0].id);
       if (result.affectedRows == 0) {
         res.json({ error: true, message: "Invalid Action" });
       }
+      //RESPONSE
       res.json({ message: "Your password reset successfully" });
     } catch (error) {
       res.status(404).json({ message: error.message });
