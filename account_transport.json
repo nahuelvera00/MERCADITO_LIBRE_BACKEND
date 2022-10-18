@@ -1,0 +1,10 @@
+{
+  "service": "gmail",
+  "auth": {
+    "type": "OAuth2",
+    "user": "nahuelvera3770@gmail.com@gmail.com",
+    "clientId": "594218590455-7fccau9bbksvlmbaal01jv22bdc50vnh.apps.googleusercontent.com",
+    "clientSecret": "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",
+    "refreshToken": "1//04YkcDpKDjouoCgYIARAAGAQSNwF-L9IrD-UcjSNO9gBTNchHabeZ9tnNvcTBN9-hbx4GYTAONnW98XXs6kJVTpw1AgKISeEn5M0"
+  }
+}
