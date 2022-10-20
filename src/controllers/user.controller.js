@@ -174,7 +174,7 @@ class UserControllers {
         id: user[0].id,
         name: user[0].name,
         email: user[0].email,
-        token: GenerarToken.generarJWT(),
+        token: GenerarToken.generarJWT(user[0].id, user[0].rol),
         rol: user[0].rol,
       });
     }

@@ -13,5 +13,7 @@ app.use(express.json());
 
 //ROUTES
 app.use("/api/users", require("./routes/user.routes"));
+app.use("/api/products", require("./routes/product.routes"));
+app.use("/api/categories", require("./routes/categories.routes"));
 
 export default app;

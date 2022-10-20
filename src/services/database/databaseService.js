@@ -26,6 +26,10 @@ class DatabaseService {
   save(entity) {
     return this.connection.query(`INSERT INTO ${this.table} SET ?`, entity);
   }
+
+  delete(id) {
+    return this.connection.query(`DELETE FROM ${this.table} WHERE id = ?`, id);
+  }
 }
 
 module.exports = DatabaseService;
