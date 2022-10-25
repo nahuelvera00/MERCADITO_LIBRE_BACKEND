@@ -5,6 +5,7 @@ class ProductController {
   constructor() {
     this.databaseService = new ProductDatabaseService("products", pool);
   }
+
   //----------- GET ALL PRODUCTS -----------------------------------------------------------------------------------------------
 
   async getAllProducts(req, res) {
@@ -35,6 +36,38 @@ class ProductController {
     } catch (error) {}
   }
 
+  //----------- GET PRODUCTS BY SUB_CATEGORY -----------------------------------------------------------------------------------
+
+  async getProductsBySubCategory(req, res) {
+    const { sub_category_id } = req.params;
+
+    try {
+      const products = await this.databaseService.findBySubCategory(
+        sub_category_id
+      );
+      if (products.length == 0) {
+        res.json({ message: "There are no products in this category" });
+      }
+      res.json(products);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  //----------- GET PRODUCT BY CATEGORY ---------------------------------------------------------------------------------------
+
+  async getProductsByCategory(req, res) {
+    const { category_id } = req.params;
+
+    try {
+      const products = await this.databaseService.findByCategory(category_id);
+      if (products.length == 0) {
+        res.json({ message: "There are no products in this category" });
+      }
+      res.json(products);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   //----------- CREATE NEW PRODUCT ---------------------------------------------------------------------------------------------
 
   async createProduct(req, res) {

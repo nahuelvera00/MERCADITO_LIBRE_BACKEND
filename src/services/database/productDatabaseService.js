@@ -8,6 +8,21 @@ class ProductDatabaseService extends DatabaseService {
     super(table, connection);
   }
 
+  findBySubCategory(subCategory) {
+    return this.connection.query(
+      `SELECT * FROM ${this.table} WHERE sub_category_id = ?;`,
+      subCategory
+    );
+  }
+
+  findByCategory(category) {
+    return this.connection.query(
+      `SELECT * FROM ${this.table}
+      INNER JOIN sub_categories ON products.sub_category_id = sub_categories.id
+        WHERE sub_categories.category_id = ${category};`
+    );
+  }
+
   update(data, id) {
     return this.connection.query(`UPDATE ${this.table} SET ? WHERE id = ?`, [
       data,
