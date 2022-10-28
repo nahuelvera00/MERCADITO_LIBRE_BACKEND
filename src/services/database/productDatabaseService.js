@@ -31,7 +31,7 @@ class ProductDatabaseService extends DatabaseService {
   }
 
   async updateProduct(data, id, user) {
-    const { name, price, description, sub_category_id } = data;
+    const { name, price, description, stock, sub_category_id } = data;
 
     //Get product by ID
     const product = await this.findById(id);
@@ -51,6 +51,7 @@ class ProductDatabaseService extends DatabaseService {
       name: name || product[0].name,
       price: price || product[0].price,
       description: description || product[0].description,
+      stock: stock || product[0].stock,
       sub_category_id: sub_category_id || product[0].sub_category_id,
     };
 

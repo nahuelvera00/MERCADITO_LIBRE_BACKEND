@@ -5,13 +5,6 @@ class CategoryDatabaseService extends DatabaseService {
     super(table, connection);
   }
 
-  update(data, id) {
-    return this.connection.query(`UPDATE ${this.table} SET ? WHERE id = ?`, [
-      data,
-      id,
-    ]);
-  }
-
   async updateCategory(data, id) {
     const { name } = data;
 

@@ -68,18 +68,23 @@ class ProductController {
       console.log(error.message);
     }
   }
+
   //----------- CREATE NEW PRODUCT ---------------------------------------------------------------------------------------------
 
   async createProduct(req, res) {
-    const { name, price, description, sub_category_id } = req.body;
+    const { name, price, description, stock, sub_category_id } = req.body;
+    const image = req.files;
 
     const data = {
       name,
       price,
       description,
+      stock,
+      image: image[0].filename,
       user_id: req.user[0].id,
       sub_category_id,
     };
+
     try {
       const user = await this.databaseService.save(data);
       if (user.affectedRows == 0) {
@@ -94,13 +99,14 @@ class ProductController {
   //----------- UPDATE PRODUCT -------------------------------------------------------------------------------------------------
 
   async updateProduct(req, res) {
-    const { name, price, description, sub_category_id } = req.body;
+    const { name, price, description, stock, sub_category_id } = req.body;
     const { id } = req.params;
 
     const data = {
       name,
       price,
       description,
+      stock,
       sub_category_id,
     };
     const result = await this.databaseService.updateProduct(data, id, req.user);
